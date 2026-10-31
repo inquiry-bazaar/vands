@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { handleCallClick } from "@/lib/track";
 
 export default function AboutPage() {
   return (
@@ -65,33 +66,33 @@ export default function AboutPage() {
         </p>
 
         {/* PRODUCT SHOWCASE */}
-      
+
 
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
           {[
             {
               name: "Airless Painting Machine",
               img: "/prods/ejunior.webp",
-              href:"/products/e-junior"
+              href: "/products/e-junior"
             },
             {
               name: "GALAXY PLUS Airless Painting Machine",
               img: "/prods/GALAXY PLUS.webp",
-              href:"/products/galaxy-plus"
+              href: "/products/galaxy-plus"
             },
             {
               name: "Pnuematic Airless Painting Machine",
               img: "/pnumatic.jpeg",
-              href:"products/pneumatic-airless-paint-sprayer-pneumatic-70-1"
+              href: "products/pneumatic-airless-paint-sprayer-pneumatic-70-1"
             },
             {
               name: "Airless Tumblast Shot Blasting Machine",
               img: "/Plural Component Sprayer.webp",
-              href:"/products/plural-component-ratio-2k-airless-spray-painting-machine" 
+              href: "/products/plural-component-ratio-2k-airless-spray-painting-machine"
             },
           ].map((item, i) => (
             <Link
-            href={item.href}
+              href={item.href}
               key={i}
               className="border p-4 rounded-lg text-center hover:shadow-lg transition bg-white"
             >
@@ -156,13 +157,13 @@ export default function AboutPage() {
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">
-          <a href="tel:+919990730939" className="bg-white text-red-600 px-6 py-3 rounded font-semibold hover:bg-gray-100">
-            Call Now 
+          <a onClick={() => handleCallClick({ source: "Website about page", obj: "N/A" })} href="tel:+919990730939" className="bg-white text-red-600 px-6 py-3 rounded font-semibold hover:bg-gray-100">
+            Call Now
           </a>
 
-       
+
           <Link href="/contact" className="bg-black px-6 py-3 rounded hover:bg-gray-800">
-            Get Best Price 
+            Get Best Price
           </Link>
         </div>
       </section>

@@ -1,9 +1,10 @@
 "use client";
+import { handleCallClick, handleWhatsappClick } from "@/lib/track";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 const WhatsAppSticky = () => {
   return (<>
-    <a href="https://wa.me/919990730939"
+    <a onClick={() => handleWhatsappClick({ source: "Website home page", obj: "N/A" })} href="https://wa.me/919990730939"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp "
@@ -12,7 +13,7 @@ const WhatsAppSticky = () => {
       <FaWhatsapp size={30} />
     </a>
 
-    <a href="tel:9990730939"
+    <a onClick={() => handleCallClick({ source: "Website home page", obj: "N/A" })} href="tel:9990730939"
       aria-label="Call Us"
       className="fixed bottom-24 right-4 z-50 bg-red-500 text-white p-3 rounded-full shadow-lg hover:bg-red-600 transition animate-bounce"
     >

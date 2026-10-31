@@ -21,6 +21,7 @@ import {
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 import { categories } from "@/Data2";
+import { handleCallClick, handleWhatsappClick } from "@/lib/track";
 
 export default function Navbar() {
   const [showTopBar, setShowTopBar] = useState(true);
@@ -70,27 +71,27 @@ export default function Navbar() {
   }, [lastScrollY]);
 
   useEffect(() => {
-  function handleClickOutside(event) {
-    const desktopOutside =
-      !productMenuRef.current ||
-      !productMenuRef.current.contains(event.target);
+    function handleClickOutside(event) {
+      const desktopOutside =
+        !productMenuRef.current ||
+        !productMenuRef.current.contains(event.target);
 
-    const mobileOutside =
-      !mobileMenuRef.current ||
-      !mobileMenuRef.current.contains(event.target);
+      const mobileOutside =
+        !mobileMenuRef.current ||
+        !mobileMenuRef.current.contains(event.target);
 
-    if (desktopOutside && mobileOutside) {
-      setIsProductsOpen(false);
-      setActiveCategory(null);
-      setActiveMobileCategory(null);
+      if (desktopOutside && mobileOutside) {
+        setIsProductsOpen(false);
+        setActiveCategory(null);
+        setActiveMobileCategory(null);
+      }
     }
-  }
 
-  document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-  return () =>
-    document.removeEventListener("mousedown", handleClickOutside);
-}, []);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const closeMenu = () => {
     setIsMobileMenuOpen(false);
@@ -117,12 +118,11 @@ export default function Navbar() {
   ];
 
   return (
-    <header  className="w-full fixed top-0 left-0 z-50 font-semibold">
+    <header className="w-full fixed top-0 left-0 z-50 font-semibold">
       {/* TOP BAR */}
       <div
-        className={`hidden lg:block bg-[#c8102e] text-white transition-all duration-500 overflow-hidden ${
-          showTopBar ? "h-[67px]" : "h-0"
-        }`}
+        className={`hidden lg:block bg-[#c8102e] text-white transition-all duration-500 overflow-hidden ${showTopBar ? "h-[67px]" : "h-0"
+          }`}
       >
         <div className="max-w-[1400px] mx-auto flex items-center justify-between h-[70px] px-6">
           <Link href="/">
@@ -134,7 +134,7 @@ export default function Navbar() {
               GST NO. 07ALLPC1925A1ZP
             </span>
 
-            <a href="tel:+919990730939" className="flex items-center gap-2">
+            <a onClick={() => handleCallClick({ source: "Website home page", obj: "N/A" })} href="tel:+919990730939" className="flex items-center gap-2">
               <Phone size={14} /> +91-99907 30939
             </a>
             <a
@@ -162,7 +162,7 @@ export default function Navbar() {
       </div>
 
       {/* MAIN NAV */}
-      <div  className="bg-black text-white sticky top-0 z-50 shadow-md">
+      <div className="bg-black text-white sticky top-0 z-50 shadow-md">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 lg:px-10 h-[58px]">
           {/* LOGO */}
           <div className="lg:hidden">
@@ -297,7 +297,7 @@ export default function Navbar() {
             </div>
 
             {/* WHATSAPP */}
-            <a
+            <a onClick={() => handleWhatsappClick({ source: "Website home page", obj: "N/A" })}
               href="https://wa.me/919990730939"
               target="_blank"
               className="bg-green-500 hover:bg-green-600 p-2 rounded-md"
@@ -325,81 +325,81 @@ export default function Navbar() {
               </Link>
 
               {/* PRODUCTS DROPDOWN */}
-              <div  ref={mobileMenuRef}>
-  <button
-    onClick={() => setIsProductsOpen(!isProductsOpen)}
-    className="w-full flex justify-between items-center"
-  >
-    <span>OUR PRODUCTS</span>
-    <span className="text-xl">{isProductsOpen ? "−" : "+"}</span>
-  </button>
+              <div ref={mobileMenuRef}>
+                <button
+                  onClick={() => setIsProductsOpen(!isProductsOpen)}
+                  className="w-full flex justify-between items-center"
+                >
+                  <span>OUR PRODUCTS</span>
+                  <span className="text-xl">{isProductsOpen ? "−" : "+"}</span>
+                </button>
 
-  {isProductsOpen && (
-    <div className="mt-3 flex flex-col border-l border-gray-700 ml-2">
+                {isProductsOpen && (
+                  <div className="mt-3 flex flex-col border-l border-gray-700 ml-2">
 
-      {categories.map((item) => (
-        <div key={item.id} className="text-white">
+                    {categories.map((item) => (
+                      <div key={item.id} className="text-white">
 
-          {/* Category */}
-          <div className="flex items-center justify-between">
+                        {/* Category */}
+                        <div className="flex items-center justify-between">
 
-            <Link
-              href={`/categories/${item.id}`}
-              onClick={(e) => {
-                if (item.subcategory?.length) {
-                  e.preventDefault();
+                          <Link
+                            href={`/categories/${item.id}`}
+                            onClick={(e) => {
+                              if (item.subcategory?.length) {
+                                e.preventDefault();
 
-                  setActiveMobileCategory(
-                    activeMobileCategory === item.id ? null : item.id
-                  );
-                } else {
-                  closeMenu();
-                }
-              }}
-              className="flex-1 py-3 pl-4 text-gray-300 hover:text-red-400"
-            >
-              {item.name}
-            </Link>
+                                setActiveMobileCategory(
+                                  activeMobileCategory === item.id ? null : item.id
+                                );
+                              } else {
+                                closeMenu();
+                              }
+                            }}
+                            className="flex-1 py-3 pl-4 text-gray-300 hover:text-red-400"
+                          >
+                            {item.name}
+                          </Link>
 
-            {item.subcategory?.length > 0 && (
-              <button
-                onClick={() =>
-                  setActiveMobileCategory(
-                    activeMobileCategory === item.id ? null : item.id
-                  )
-                }
-                className="px-4 text-lg"
-              >
-                {activeMobileCategory === item.id ? "−" : "+"}
-              </button>
-            )}
-          </div>
+                          {item.subcategory?.length > 0 && (
+                            <button
+                              onClick={() =>
+                                setActiveMobileCategory(
+                                  activeMobileCategory === item.id ? null : item.id
+                                )
+                              }
+                              className="px-4 text-lg"
+                            >
+                              {activeMobileCategory === item.id ? "−" : "+"}
+                            </button>
+                          )}
+                        </div>
 
-          {/* Subcategories */}
-          {activeMobileCategory === item.id &&
-            item.subcategory?.length > 0 && (
-              <div className="ml-5 border-l border-gray-600">
+                        {/* Subcategories */}
+                        {activeMobileCategory === item.id &&
+                          item.subcategory?.length > 0 && (
+                            <div className="ml-5 border-l border-gray-600">
 
-                {item.subcategory.map((sub) => (
-                  <Link
-                    key={sub.id}
-                    href={`/categories/${item.id}/${sub.id}`}
-                    onClick={closeMenu}
-                    className="block py-2 pl-4 text-sm text-gray-400 hover:text-red-400"
-                  >
-                    {sub.name}
-                  </Link>
-                ))}
+                              {item.subcategory.map((sub) => (
+                                <Link
+                                  key={sub.id}
+                                  href={`/categories/${item.id}/${sub.id}`}
+                                  onClick={closeMenu}
+                                  className="block py-2 pl-4 text-sm text-gray-400 hover:text-red-400"
+                                >
+                                  {sub.name}
+                                </Link>
+                              ))}
 
+                            </div>
+                          )}
+
+                      </div>
+                    ))}
+
+                  </div>
+                )}
               </div>
-            )}
-
-        </div>
-      ))}
-
-    </div>
-  )}
-</div>
 
               <Link href="/about" onClick={closeMenu}>
                 ABOUT US
