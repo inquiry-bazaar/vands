@@ -1,16 +1,57 @@
 @import "tailwindcss";
 
-:root{
-    font-family: "roboto",sans-serif;
+:root {
+  font-family: "roboto", sans-serif;
   font-optical-sizing: auto;
 
   font-style: normal;
 
-  
+
 }
 
-h1, h2, h3, h4, h5, h6 {
- font-family: var(--font-poppins), sans-serif; /* Example: Roboto for headings */
+.navbar-marquee-track {
+  animation: navbar-marquee-scroll 35s linear infinite;
+}
+
+.navbar-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes navbar-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-marquee-track {
+    animation-duration: 25s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-marquee-track {
+    animation: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 165px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-poppins), sans-serif;
+  /* Example: Roboto for headings */
 }
 
 .font-poppins {
@@ -30,7 +71,8 @@ h1, h2, h3, h4, h5, h6 {
 /* globals.css */
 ul {
   list-style-type: disc;
-  padding-left: 1.5rem; /* space for bullets */
+  padding-left: 1.5rem;
+  /* space for bullets */
 }
 
 ol {
@@ -43,9 +85,11 @@ ol {
   0% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-35px);
   }
+
   100% {
     transform: translateY(0px);
   }

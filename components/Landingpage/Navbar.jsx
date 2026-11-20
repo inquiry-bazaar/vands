@@ -22,8 +22,14 @@ import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 import { categories } from "@/Data2";
 import { handleCallClick, handleWhatsappClick } from "@/lib/track";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathName = usePathname();
+
+  if (pathName === "/inquiry" || pathName.startsWith("/inquiry/")) {
+    return null;
+  }
   const [showTopBar, setShowTopBar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

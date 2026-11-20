@@ -1,8 +1,14 @@
 "use client";
 import { handleCallClick, handleWhatsappClick } from "@/lib/track";
+import { usePathname } from "next/navigation";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 
 const WhatsAppSticky = () => {
+  const pathName = usePathname();
+
+  if (pathName === "/inquiry" || pathName.startsWith("/inquiry/")) {
+    return null;
+  }
   return (<>
     <a onClick={() => handleWhatsappClick({ source: "Website home page", obj: "N/A" })} href="https://wa.me/919990730939"
       target="_blank"

@@ -10,10 +10,15 @@ import {
 } from "react-icons/fa";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
-    const date = new Date();
+  const date = new Date();
+  const pathName = usePathname();
 
+  if (pathName === "/inquiry" || pathName.startsWith("/inquiry/")) {
+    return null;
+  }
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -223,10 +228,10 @@ const Footer = () => {
                 className="hover:text-red-400 transition"
               >
                 {" "}
-               Sand Blasting Machines
+                Sand Blasting Machines
               </Link>
             </li>
-            
+
           </ul>
         </div>
 
@@ -279,13 +284,13 @@ const Footer = () => {
 
         <p className="mt-2 md:mt-0">
           Website Designed By Inquiry Bazaar Pvt. Ltd.  {" "}
-        <a
-          target="_blank"
-          href="https://inquirybazaar.com/"
-          className="text-[#FAAC18] hover:underline"
-        >
-           B2B Marketplace
-        </a>
+          <a
+            target="_blank"
+            href="https://inquirybazaar.com/"
+            className="text-[#FAAC18] hover:underline"
+          >
+            B2B Marketplace
+          </a>
         </p>
       </div>
     </footer>
