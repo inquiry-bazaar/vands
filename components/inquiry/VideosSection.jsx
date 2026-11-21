@@ -4,7 +4,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Play, ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,40 +13,45 @@ const videos = [
     {
         id: "video1",
         title: "8.1 LPM Surya 10 Electrical Airless Texture Sprayer",
-        youtube: "https://youtu.be/dr7O_CeLUbs",
+        youtube: "https://youtube.com/shorts/yZgXDhtNC60?si=36x3FMYPmevahx5_",
     },
     {
         id: "video2",
         title: "2.3 LPM Prithvi 499EC Furniture Painting Sprayer",
-        youtube: "https://youtu.be/paom1njRM2A",
+        youtube: "https://youtube.com/shorts/LmRt2GbtmTU?si=4RTsvTQYknJE0GrL",
     },
     {
         id: "video3",
         title: "6.3 LPM Surya 9 Wall Painting Sprayer",
-        youtube: "https://youtu.be/zJLRUWAh38g",
+        youtube: "https://youtube.com/shorts/ikXlYQf-zyk?si=-nzjWNEKjBXLBAPb",
     },
     {
         id: "video4",
         title: "Jaguar 5.5 LPM C-301 Power Plant PNUMATIC Airless Spray Painting Machine",
-        youtube: "https://youtu.be/0bV-Guzi4F4",
+        youtube: "https://youtube.com/shorts/DeLFQSXQvF8?si=W1JRa-acjIzwkbG1",
     },
 ];
 
 function getYouTubeId(url) {
     try {
         const parsed = new URL(url);
+        const hostname = parsed.hostname.replace(/^www\./, "");
 
-        if (
-            parsed.hostname === "youtu.be" ||
-            parsed.hostname === "www.youtu.be"
-        ) {
-            return parsed.pathname.split("/")[1];
+        if (hostname === "youtu.be") {
+            return parsed.pathname.split("/")[1] || null;
         }
 
         if (
-            parsed.hostname === "youtube.com" ||
-            parsed.hostname === "www.youtube.com"
+            hostname === "youtube.com" ||
+            hostname === "m.youtube.com"
         ) {
+            if (
+                parsed.pathname.startsWith("/shorts/") ||
+                parsed.pathname.startsWith("/embed/")
+            ) {
+                return parsed.pathname.split("/")[2] || null;
+            }
+
             return parsed.searchParams.get("v");
         }
 
@@ -77,7 +82,7 @@ function VideoCard({ video }) {
                 }
             },
             {
-                threshold: 0.4,
+                threshold: 0.5,
             }
         );
 
@@ -95,10 +100,10 @@ function VideoCard({ video }) {
     return (
         <article
             ref={cardRef}
-            className="group flex h-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all duration-300 hover:border-[#c8102e]/40 hover:shadow-[0_12px_35px_rgba(0,0,0,0.08)]"
+            className="group relative w-full overflow-hidden rounded-xl bg-black shadow-sm transition-all duration-300 hover:shadow-[0_12px_35px_rgba(0,0,0,0.12)] sm:rounded-2xl"
         >
-            {/* Video */}
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#111111]">
+            {/* Vertical YouTube Short */}
+            <div className="relative aspect-[9/16] w-full overflow-hidden bg-[#111111]">
                 {shouldPlay && embedUrl ? (
                     <iframe
                         src={embedUrl}
@@ -126,28 +131,24 @@ function VideoCard({ video }) {
 
                         <span className="absolute inset-0 bg-black/20" />
 
-                        <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#c8102e] text-white shadow-lg transition-transform duration-300 group-hover:scale-110 sm:h-14 sm:w-14">
+                        <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-[#c8102e] text-white shadow-lg transition-transform duration-300 group-hover:scale-110 sm:h-16 sm:w-16">
                             <Play
-                                size={18}
+                                size={22}
                                 fill="currentColor"
-                                className="ml-0.5"
+                                className="ml-1"
                             />
                         </span>
                     </button>
                 )}
-            </div>
-
-            {/* Video Title */}
-            <div className="flex flex-1 items-start border-t border-neutral-100 p-3 sm:p-4">
-                <h3 className="line-clamp-3 text-[11px] font-bold leading-[1.5] text-[#111111] transition-colors duration-300 group-hover:text-[#c8102e] sm:text-sm sm:leading-6">
-                    {video.title}
-                </h3>
             </div>
         </article>
     );
 }
 
 export default function VideosSection() {
+    const prevRef = useRef(null);
+    const nextRef = useRef(null);
+
     return (
         <section
             id="our-videos"
@@ -163,7 +164,7 @@ export default function VideosSection() {
                             <span className="h-[2px] w-8 bg-[#c8102e]" />
 
                             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#c8102e] sm:text-xs">
-                                Product Videos
+                                Product Shorts
                             </span>
                         </div>
 
@@ -178,17 +179,19 @@ export default function VideosSection() {
                     {/* Mobile Navigation */}
                     <div className="flex shrink-0 items-center gap-2 lg:hidden">
                         <button
+                            ref={prevRef}
                             type="button"
-                            aria-label="Previous video"
-                            className="video-prev flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-[#111111] transition-all hover:border-[#c8102e] hover:bg-[#c8102e] hover:text-white"
+                            aria-label="Previous short"
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-[#111111] transition-all hover:border-[#c8102e] hover:bg-[#c8102e] hover:text-white"
                         >
                             <ChevronLeft size={18} />
                         </button>
 
                         <button
+                            ref={nextRef}
                             type="button"
-                            aria-label="Next video"
-                            className="video-next flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-[#111111] transition-all hover:border-[#c8102e] hover:bg-[#c8102e] hover:text-white"
+                            aria-label="Next short"
+                            className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-[#111111] transition-all hover:border-[#c8102e] hover:bg-[#c8102e] hover:text-white"
                         >
                             <ChevronRight size={18} />
                         </button>
@@ -198,17 +201,16 @@ export default function VideosSection() {
                 {/* Mobile / Tablet Swiper */}
                 <div className="lg:hidden">
                     <Swiper
-                        modules={[Navigation, Autoplay]}
+                        modules={[Navigation]}
                         slidesPerView={2}
                         spaceBetween={10}
                         navigation={{
-                            prevEl: ".video-prev",
-                            nextEl: ".video-next",
+                            prevEl: prevRef.current,
+                            nextEl: nextRef.current,
                         }}
-                        autoplay={{
-                            delay: 20000,
-                            disableOnInteraction: false,
-                            pauseOnMouseEnter: true,
+                        onBeforeInit={(swiper) => {
+                            swiper.params.navigation.prevEl = prevRef.current;
+                            swiper.params.navigation.nextEl = nextRef.current;
                         }}
                         loop={true}
                         breakpoints={{
@@ -217,7 +219,7 @@ export default function VideosSection() {
                                 spaceBetween: 18,
                             },
                         }}
-                        className=""
+                        className="shorts-swiper"
                     >
                         {videos.map((video) => (
                             <SwiperSlide
@@ -230,7 +232,7 @@ export default function VideosSection() {
                     </Swiper>
                 </div>
 
-                {/* Desktop Grid - 4 Videos One Row */}
+                {/* Desktop - 4 Shorts in One Row */}
                 <div className="hidden grid-cols-4 gap-5 lg:grid xl:gap-7">
                     {videos.map((video) => (
                         <VideoCard

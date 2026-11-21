@@ -14,7 +14,7 @@ import {
     Loader2,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-
+import axios from "axios";
 const PHONE = "919990730939";
 const EMAIL = "info@airlesspaintingmachine.com";
 
@@ -32,6 +32,7 @@ const initialForm = {
     name: "",
     phone: "",
     email: "",
+    city: "N/A",
     product: "",
     message: "",
 };
@@ -60,8 +61,11 @@ export default function ContactSection() {
         }
     };
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (loading) return;
 
         if (!/^[6-9]\d{9}$/.test(form.phone)) {
             setStatus({
@@ -74,23 +78,39 @@ export default function ContactSection() {
         setLoading(true);
         setStatus({ type: "", message: "" });
 
+        const { name, phone, email, city, product, message } = form;
+
+        // Open a tab immediately to avoid popup blockers.
+        const whatsappTab = window.open("about:blank", "_blank");
+        const webisteUrl = window.location.hostname + window.location.pathname;
         try {
-            const response = await fetch("/api/inquiry", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    ...form,
-                    source: "Contact Section",
-                }),
-            });
+            const formData = {
+                supplierToken: "6a9bd96879bd32ac5164a486",
+                platform: webisteUrl || "Vands Engineering Contact Form",
+                platformEmail: "sales.vands5@gmail.com",
+                name,
+                phone,
+                email,
+                city,
+                product,
+                message,
+                place: city || "N/A",
+            };
 
-            const data = await response.json();
+            const { data } = await axios.post(
+                "https://brandbnalo.com/api/form/add",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    timeout: 15000,
+                }
+            );
 
-            if (!response.ok || !data.success) {
+            if (!data?.success) {
                 throw new Error(
-                    data.message || "Unable to submit your inquiry."
+                    data?.message || "Unable to submit your inquiry."
                 );
             }
 
@@ -100,11 +120,36 @@ export default function ContactSection() {
                     "Your inquiry has been submitted successfully! Our team will contact you soon.",
             });
 
+            const whatsappText = `Hi, I am ${name}.
+Email: ${email || "N/A"}
+Product: ${product}
+City: ${city || "N/A"}
+Message: ${message || "N/A"}
+Contact: ${phone}`;
+
+            const whatsappUrl =
+                `https://wa.me/919990730939?text=${encodeURIComponent(whatsappText)}`;
+
+            if (whatsappTab && !whatsappTab.closed) {
+                whatsappTab.location.replace(whatsappUrl);
+            } else {
+                setStatus({
+                    type: "success",
+                    message:
+                        "Inquiry submitted successfully. Please allow popups to continue on WhatsApp.",
+                });
+            }
+
             setForm(initialForm);
         } catch (error) {
+            whatsappTab?.close();
+
+            console.error("Contact inquiry error:", error);
+
             setStatus({
                 type: "error",
                 message:
+                    error.response?.data?.message ||
                     error.message ||
                     "Something went wrong. Please try again.",
             });
@@ -112,6 +157,7 @@ export default function ContactSection() {
             setLoading(false);
         }
     };
+
 
     return (
         <section id="inquiry-form"

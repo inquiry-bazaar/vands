@@ -21,11 +21,11 @@ const Cta = () => {
     e.preventDefault();
     setLoading(true);
     setStatus("Sending...");
-
+    const webisteUrl = window.location.hostname + window.location.pathname;
     try {
       const formData = {
         supplierToken: "6a9bd96879bd32ac5164a486",
-        platform: "vands engineering Website enquiry form",
+        platform: webisteUrl || "vands engineering Website enquiry form",
         platformEmail: "vandsengg@gmail.com",
         name,
         phone,

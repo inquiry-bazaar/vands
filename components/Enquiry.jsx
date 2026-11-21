@@ -17,10 +17,10 @@ export default function Enquiry({ isOpen, onClose }) {
     e.preventDefault();
 
     const formElement = e.currentTarget;
-
+    const webisteUrl = window.location.hostname + window.location.pathname;
     const payload = {
       supplierToken: "6a9bd96879bd32ac5164a486",
-      platform: "Vands Engineering Inquiry Form",
+      platform: webisteUrl || "Vands Engineering Inquiry Form",
       platformEmail: "vandsengg@gmail.com",
       name: formElement.name.value.trim(),
       phone: formElement.phone.value.trim(),

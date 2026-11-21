@@ -15,7 +15,9 @@ export default function Page() {
             <Navbar />
             <InquiryBanner />
             <AboutInquiry />
-            <ProductsSection />
+            <div className="sm:block hidden">
+                <ProductsSection />
+            </div>
             <CTASection />
             <VideosSection />
             <CategorySection />

@@ -57,11 +57,11 @@ export default function ContactForm() {
     e.preventDefault();
     setLoading(true);
     setStatus("Sending...");
-
+    const webisteUrl = window.location.hostname + window.location.pathname;
     try {
       const formData = {
         supplierToken: "6a9bd96879bd32ac5164a486",
-        platform: "Vands engineering Popup Form",
+        platform: webisteUrl || "Vands engineering Popup Form",
         platformEmail: "vandsengg@gmail.com",
         name,
         phone,

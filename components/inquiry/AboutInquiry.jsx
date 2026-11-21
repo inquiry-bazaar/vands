@@ -16,10 +16,11 @@ import {
 } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-
+import axios from "axios";
 import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
+import ProductsSection from "./ProductsSection";
 
 const stats = [
     {
@@ -46,6 +47,7 @@ const initialForm = {
     name: "",
     email: "",
     phone: "",
+    city: "N/A",
     product: "",
     message: "",
 };
@@ -62,22 +64,6 @@ export default function AboutInquiry() {
         type: "",
         message: "",
     });
-
-    const whatsappNumber = "919990730939";
-
-    const handleCategoryWhatsApp = (category) => {
-        const message = `Hello Vands Engineering Solutions,
-
-I am interested in ${category.name}.
-
-Please share product details, specifications, and pricing.
-
-Thank you.`;
-
-        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-        window.open(url, "_blank", "noopener,noreferrer");
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -96,85 +82,88 @@ Thank you.`;
         setLoading(true);
         setStatus({ type: "", message: "" });
 
+        const { name, email, phone, city, product, message } = form;
+
+        // Open a blank tab during the user click to avoid popup blockers.
+        const whatsappTab = window.open("", "_blank");
+        const webisteUrl = window.location.hostname + window.location.pathname;
         try {
-            const res = await fetch("/api/inquiry", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(form),
-            });
+            const formData = {
+                supplierToken: "6a9bd96879bd32ac5164a486",
+                platform: webisteUrl || "Vands Engineering  Contact Form",
+                platformEmail: "sales.vands5@gmail.com",
+                name,
+                phone,
+                email,
+                city,
+                product,
+                message,
+                place: city || "N/A",
+            };
 
-            const data = await res.json();
+            const { data } = await axios.post(
+                "https://brandbnalo.com/api/form/add",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    timeout: 15000,
+                }
+            );
 
-            if (!res.ok || data.success === false) {
-                throw new Error(
-                    data.message || "Failed to submit inquiry."
-                );
+            if (data?.success) {
+                setStatus({
+                    type: "success",
+                    message:
+                        "Thank you! Your inquiry has been submitted successfully.",
+                });
+
+                const whatsappText = `Hi, I am ${name}.
+Email: ${email}
+Product: ${product}
+City: ${city}
+Message: ${message}
+Contact: ${phone}`;
+
+                const whatsappUrl =
+                    `https://wa.me/919990730939?text=${encodeURIComponent(whatsappText)}`;
+
+                if (whatsappTab && !whatsappTab.closed) {
+                    whatsappTab.location.replace(whatsappUrl);
+                } else {
+                    setStatus({
+                        type: "success",
+                        message:
+                            "Inquiry submitted successfully. Please allow popups to open WhatsApp.",
+                    });
+                }
+
+                setForm(initialForm);
+            } else {
+                whatsappTab?.close();
+
+                setStatus({
+                    type: "error",
+                    message:
+                        data?.message || "Failed to submit inquiry. Please try again.",
+                });
             }
-
-            setStatus({
-                type: "success",
-                message:
-                    "Thank you! Your inquiry has been submitted successfully.",
-            });
-
-            setForm(initialForm);
         } catch (error) {
+            whatsappTab?.close();
+
+            console.error("Inquiry submission error:", error);
+
             setStatus({
                 type: "error",
                 message:
-                    error.message || "Something went wrong. Please try again.",
+                    error.response?.data?.message ||
+                    "Something went wrong. Please try again.",
             });
         } finally {
             setLoading(false);
         }
     };
-
-    const categories = [
-        {
-            id: 1,
-            name: "Eco Pro Plus",
-            products: 30,
-            img: "/cat/airlesspainting.webp",
-            hoverImg: "/cat/6.webp",
-        },
-        {
-            id: 2,
-            name: "Airless Wall Putty Spray Machines",
-            products: 24,
-            img: "/Galaxy1.webp",
-            hoverImg: "/cat/1.webp",
-        },
-        {
-            id: 3,
-            name: "Pneumatic Machines",
-            products: 21,
-            img: "/cat/airlessspray-removebg-preview.webp",
-            hoverImg: "/bg remove.webp",
-        },
-        {
-            id: 4,
-            name: "Kerb Painting Machine",
-            products: 37,
-            img: "/cat/kerb-removebg-preview.webp",
-            hoverImg: "/22.webp",
-        },
-        {
-            id: 5,
-            name: "Polyurethane Machines",
-            products: 26,
-            img: "/cat/airlesspaintspray-removebg-preview.webp",
-            hoverImg: "/11.webp",
-        },
-        {
-            id: 6,
-            name: "Painting Hose Pipe",
-            products: 17,
-            img: "/cat/wallpainting-removebg-preview.webp",
-            hoverImg: "/accesseres/PAINT HOSE.webp",
-        },
-    ];
 
     return (
         <section id="about-inquiry" ref={ref}
@@ -183,9 +172,9 @@ Thank you.`;
             {/* Background decoration */}
             <div className="pointer-events-none absolute -left-40 top-20 h-[450px] w-[450px] rounded-full bg-red-500/[0.035] blur-[100px]" />
 
-            <div className="relative mx-auto max-w-[1500px] px-3 sm:px-8 lg:px-12">
+            <div className="relative mx-auto max-w-[1500px] px-0 sm:px-8 lg:px-12">
                 <div className="grid items-start gap-5 lg:grid-cols-[1fr_0.9fr] lg:gap-16 xl:gap-20">
-                    <div className="">
+                    <div className="sm:px-0 px-3">
                         {/* Eyebrow */}
                         <div className="mb-2 flex items-center gap-3">
                             <span className="h-[2px] w-10 bg-[#DC2626]" />
@@ -289,107 +278,12 @@ Thank you.`;
                         </div>
                     </div>
 
-                    {/* Mobile Category Swiper */}
-                    <div className="min-w-0 w-full overflow-hidden py-2 lg:hidden">
-
-                        {/* Section Heading */}
-                        <div className="mb-2 flex items-center justify-between gap-3">
-                            <div>
-                                <div className="flex items-center gap-2">
-                                    <span className="h-[2px] w-6 bg-[#c8102e]" />
-                                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c8102e]">
-                                        Explore Products
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Navigation */}
-                            <div className="flex items-center gap-2">
-                                <button
-                                    type="button"
-                                    aria-label="Previous category"
-                                    className="mobile-category-prev flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-lg text-[#111111] transition hover:border-[#c8102e] hover:bg-[#c8102e] hover:text-white"
-                                >
-                                    &#8592;
-                                </button>
-
-                                <button
-                                    type="button"
-                                    aria-label="Next category"
-                                    className="mobile-category-next flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-lg text-[#111111] transition hover:border-[#c8102e] hover:bg-[#c8102e] hover:text-white"
-                                >
-                                    &#8594;
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Swiper */}
-                        <Swiper
-                            modules={[Navigation, Autoplay]}
-                            spaceBetween={10}
-                            slidesPerView={2}
-                            navigation={{
-                                prevEl: ".mobile-category-prev",
-                                nextEl: ".mobile-category-next",
-                            }}
-                            autoplay={{
-                                delay: 3000,
-                                disableOnInteraction: false,
-                                pauseOnMouseEnter: true,
-                            }}
-                            loop={categories.length > 2}
-                            breakpoints={{
-                                640: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 14,
-                                },
-                            }}
-                            className="mobile-category-swiper !pb-2"
-                        >
-                            {categories.map((category) => (
-                                <SwiperSlide
-                                    key={category.id}
-                                    className="!h-auto"
-                                >
-                                    <button
-                                        type="button"
-                                        onClick={() => handleCategoryWhatsApp(category)}
-                                        className="group flex h-full w-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white text-left transition-all duration-300 hover:border-[#c8102e]/40 hover:shadow-lg"
-                                    >
-                                        {/* Image */}
-                                        <div className="relative aspect-square w-full overflow-hidden bg-[#f8f8f8]">
-                                            <Image
-                                                src={category.hoverImg}
-                                                alt={category.name}
-                                                fill
-                                                sizes="(max-width: 639px) 50vw, 33vw"
-                                                className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
-                                            />
-
-                                            {/* WhatsApp Indicator */}
-                                            <span className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#c8102e] shadow-sm transition-colors group-hover:bg-[#c8102e] group-hover:text-white">
-                                                <ArrowUpRight size={15} />
-                                            </span>
-                                        </div>
-
-                                        {/* Category Details */}
-                                        <div className="flex w-full flex-1 flex-col items-center justify-center gap-2 border-t border-neutral-100 px-2 py-2 text-center">
-                                            <h3 className="line-clamp-2 text-xs font-bold leading-[18px] text-[#111111] transition-colors group-hover:text-[#c8102e]">
-                                                {category.name}
-                                            </h3>
-
-                                            <span className="text-[10px] animate-pulse font-semibold text-[#c8102e]">
-                                                Enquire on WhatsApp
-                                            </span>
-                                        </div>
-                                    </button>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
+                    <div className="sm:hidden block">
+                        <ProductsSection />
                     </div>
 
                     <div
-                        className="scroll-mt-24 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_25px_80px_rgba(0,0,0,0.07)]"
+                        className="scroll-mt-24 sm:mx-0 mx-3 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_25px_80px_rgba(0,0,0,0.07)]"
                     >
                         {/* Form Header */}
                         <div className="relative overflow-hidden bg-[#111111] px-7 py-6 text-white sm:px-10">

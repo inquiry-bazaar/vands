@@ -19,11 +19,11 @@ export default function Page() {
     e.preventDefault();
     setLoading(true);
     setStatus("");
-
+    const webisteUrl = window.location.hostname + window.location.pathname;
     try {
       const formData = {
         supplierToken: "6a9bd96879bd32ac5164a486",
-        platform: "Vands Engineering  Contact Form",
+        platform: webisteUrl || "Vands Engineering  Contact Form",
         platformEmail: "sales.vands5@gmail.com",
         name,
         phone,

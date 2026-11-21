@@ -41,7 +41,7 @@ export default function Footer() {
                     const Icon = button.icon;
 
                     return (
-                        <a
+                        <a 
                             key={button.name}
                             href={button.href}
                             target={button.external ? "_blank" : undefined}
