@@ -62,6 +62,7 @@ export default function ContactSection() {
     };
 
 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -80,13 +81,13 @@ export default function ContactSection() {
 
         const { name, phone, email, city, product, message } = form;
 
-        // Open a tab immediately to avoid popup blockers.
-        const whatsappTab = window.open("about:blank", "_blank");
-        const webisteUrl = window.location.hostname + window.location.pathname;
+        const websiteUrl =
+            window.location.hostname + window.location.pathname;
+
         try {
             const formData = {
                 supplierToken: "6a9bd96879bd32ac5164a486",
-                platform: webisteUrl || "Vands Engineering Contact Form",
+                platform: websiteUrl || "Vands Engineering Contact Form",
                 platformEmail: "sales.vands5@gmail.com",
                 name,
                 phone,
@@ -116,8 +117,7 @@ export default function ContactSection() {
 
             setStatus({
                 type: "success",
-                message:
-                    "Your inquiry has been submitted successfully! Our team will contact you soon.",
+                message: "Your inquiry has been submitted successfully!",
             });
 
             const whatsappText = `Hi, I am ${name}.
@@ -127,23 +127,17 @@ City: ${city || "N/A"}
 Message: ${message || "N/A"}
 Contact: ${phone}`;
 
-            const whatsappUrl =
-                `https://wa.me/919990730939?text=${encodeURIComponent(whatsappText)}`;
+            const whatsappUrl = `https://wa.me/919990730939?text=${encodeURIComponent(
+                whatsappText
+            )}`;
 
-            if (whatsappTab && !whatsappTab.closed) {
-                whatsappTab.location.replace(whatsappUrl);
-            } else {
-                setStatus({
-                    type: "success",
-                    message:
-                        "Inquiry submitted successfully. Please allow popups to continue on WhatsApp.",
-                });
-            }
-
+            // Reset form after successful API submission
             setForm(initialForm);
-        } catch (error) {
-            whatsappTab?.close();
 
+            // Redirect directly without opening a blank tab
+            window.location.assign(whatsappUrl);
+
+        } catch (error) {
             console.error("Contact inquiry error:", error);
 
             setStatus({
@@ -159,8 +153,9 @@ Contact: ${phone}`;
     };
 
 
+
     return (
-        <section id="inquiry-form"
+        <section
             className="relative overflow-hidden bg-[#f8f8f8] pb-20 pt-10"
         >
             <div className="mx-auto max-w-[1500px] px-3 sm:px-8 lg:px-12">
@@ -286,7 +281,7 @@ Contact: ${phone}`;
                             </p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-5">
+                        <form id="inquiry-form" onSubmit={handleSubmit} className="space-y-5">
                             {/* Name & Phone */}
                             <div className="grid gap-5 sm:grid-cols-2">
                                 <div>

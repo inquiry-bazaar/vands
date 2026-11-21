@@ -74,6 +74,7 @@ export default function AboutInquiry() {
         }));
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -84,13 +85,13 @@ export default function AboutInquiry() {
 
         const { name, email, phone, city, product, message } = form;
 
-        // Open a blank tab during the user click to avoid popup blockers.
-        const whatsappTab = window.open("", "_blank");
-        const webisteUrl = window.location.hostname + window.location.pathname;
+        const websiteUrl =
+            window.location.hostname + window.location.pathname;
+
         try {
             const formData = {
                 supplierToken: "6a9bd96879bd32ac5164a486",
-                platform: webisteUrl || "Vands Engineering  Contact Form",
+                platform: websiteUrl || "Vands Engineering Contact Form",
                 platformEmail: "sales.vands5@gmail.com",
                 name,
                 phone,
@@ -112,58 +113,51 @@ export default function AboutInquiry() {
                 }
             );
 
-            if (data?.success) {
-                setStatus({
-                    type: "success",
-                    message:
-                        "Thank you! Your inquiry has been submitted successfully.",
-                });
+            if (!data?.success) {
+                throw new Error(
+                    data?.message ||
+                    "Failed to submit inquiry. Please try again."
+                );
+            }
 
-                const whatsappText = `Hi, I am ${name}.
-Email: ${email}
-Product: ${product}
-City: ${city}
-Message: ${message}
+            setStatus({
+                type: "success",
+                message:
+                    "Thank you! Your inquiry has been submitted successfully.",
+            });
+
+            const whatsappText = `Hi, I am ${name}.
+Email: ${email || "N/A"}
+Product: ${product || "N/A"}
+City: ${city || "N/A"}
+Message: ${message || "N/A"}
 Contact: ${phone}`;
 
-                const whatsappUrl =
-                    `https://wa.me/919990730939?text=${encodeURIComponent(whatsappText)}`;
+            const whatsappUrl = `https://wa.me/919990730939?text=${encodeURIComponent(
+                whatsappText
+            )}`;
 
-                if (whatsappTab && !whatsappTab.closed) {
-                    whatsappTab.location.replace(whatsappUrl);
-                } else {
-                    setStatus({
-                        type: "success",
-                        message:
-                            "Inquiry submitted successfully. Please allow popups to open WhatsApp.",
-                    });
-                }
+            // Reset the form after successful submission
+            setForm(initialForm);
 
-                setForm(initialForm);
-            } else {
-                whatsappTab?.close();
+            // Redirect directly to WhatsApp without a blank tab
+            window.location.assign(whatsappUrl);
 
-                setStatus({
-                    type: "error",
-                    message:
-                        data?.message || "Failed to submit inquiry. Please try again.",
-                });
-            }
         } catch (error) {
-            whatsappTab?.close();
-
             console.error("Inquiry submission error:", error);
 
             setStatus({
                 type: "error",
                 message:
                     error.response?.data?.message ||
+                    error.message ||
                     "Something went wrong. Please try again.",
             });
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <section id="about-inquiry" ref={ref}
