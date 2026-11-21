@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { Phone, MessageCircle, ArrowUpRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { handleCallClick } from "@/lib/track";
 
 export default function InquiryBanner() {
     const phone = "919990730939";
@@ -53,7 +54,7 @@ export default function InquiryBanner() {
                     <div className="pointer-events-auto flex items-center gap-3 lg:gap-4">
 
                         {/* Call Now */}
-                        <a
+                        <a onClick={() => handleCallClick({ source: "Website about page", obj: "N/A" })}
                             href={`tel:+${phone}`}
                             className="group inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-[#ef233c] bg-gradient-to-r from-[#c8102e] to-[#a30c24] px-5 text-xs font-bold text-white shadow-[0_8px_30px_rgba(200,16,46,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_35px_rgba(200,16,46,0.4)] lg:h-14 lg:gap-3 lg:px-7 lg:text-sm"
                         >

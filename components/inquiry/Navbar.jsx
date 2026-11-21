@@ -11,6 +11,7 @@ import {
     ArrowUpRight,
     MessageCircle,
 } from "lucide-react";
+import { handleCallClick } from "@/lib/track";
 
 const navLinks = [
     { name: "Home", href: "#home" },
@@ -249,7 +250,7 @@ export default function Navbar() {
                         </a>
                     ))}
 
-                    <a
+                    <a onClick={() => handleCallClick({ source: "Website about page", obj: "N/A" })}
                         href={`tel:+${phone}`}
                         className="mt-5 flex items-center justify-center gap-2 rounded-md bg-[#DC2626] px-5 py-3.5 text-sm font-bold text-white"
                     >

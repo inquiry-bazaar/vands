@@ -5,6 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { Phone, MessageCircle, ArrowUpRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { handleCallClick } from "@/lib/track";
 
 const phone = "919990730939";
 
@@ -69,7 +70,7 @@ export default function CTASection() {
                         <div className="mt-8 flex items-center justify-center gap-3 sm:gap-4 lg:justify-start">
 
                             {/* Call Button */}
-                            <a
+                            <a onClick={() => handleCallClick({ source: "Website about page", obj: "N/A" })}
                                 href={`tel:+${phone}`}
                                 className="group inline-flex text-nowrap  min-h-[52px] items-center justify-center gap-3 rounded-md bg-white px-6 py-3.5 text-sm font-bold text-[#c8102e] transition-all duration-300 hover:-translate-y-1 hover:bg-[#111111] hover:text-white sm:px-8"
                             >

@@ -11,6 +11,7 @@ import {
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { handleCallClick } from "@/lib/track";
 
 const Footer = () => {
   const date = new Date();
@@ -63,7 +64,7 @@ const Footer = () => {
             New Delhi - 110041
           </p>
 
-          <a
+          <a onClick={() => handleCallClick({ source: "Website about page", obj: "N/A" })}
             href="tel:+919990730939"
             className="flex items-center gap-2 text-sm mb-2 hover:text-red-400 transition"
           >

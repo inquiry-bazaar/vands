@@ -4,6 +4,7 @@
 import React from "react";
 import { MessageCircle, Phone, Send } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { handleCallClick } from "@/lib/track";
 
 const phone = "919990730939";
 
@@ -41,7 +42,7 @@ export default function Footer() {
                     const Icon = button.icon;
 
                     return (
-                        <a 
+                        <a onClick={() => handleCallClick({ source: "Website about page", obj: "N/A" })}
                             key={button.name}
                             href={button.href}
                             target={button.external ? "_blank" : undefined}

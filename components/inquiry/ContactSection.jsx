@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import axios from "axios";
+import { handleCallClick } from "@/lib/track";
 const PHONE = "919990730939";
 const EMAIL = "info@airlesspaintingmachine.com";
 
@@ -202,7 +203,7 @@ Contact: ${phone}`;
 
                             {/* Contact Details */}
                             <div className="sm:mt-10 mt-5 space-y-7">
-                                <a
+                                <a onClick={() => handleCallClick({ source: "Website about page", obj: "N/A" })}
                                     href={`tel:+${PHONE}`}
                                     className="group flex items-start gap-4"
                                 >
