@@ -389,7 +389,6 @@ Thank you.`;
                     </div>
 
                     <div
-                        id="inquiry-form"
                         className="scroll-mt-24 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_25px_80px_rgba(0,0,0,0.07)]"
                     >
                         {/* Form Header */}
