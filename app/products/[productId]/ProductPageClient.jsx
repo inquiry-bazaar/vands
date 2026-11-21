@@ -94,7 +94,7 @@ const ProductPageClient = ({ productId }) => {
     if (!product) return;
 
     document.title =
-      product.metaTitle || product.name;
+      product.metaTitle || `${product.name} | Vands Engineering Solutions`;
 
     let meta = document.querySelector(
       'meta[name="description"]'
