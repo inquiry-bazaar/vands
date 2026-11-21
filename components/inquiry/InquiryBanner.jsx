@@ -3,6 +3,7 @@
 
 import Image from "next/image";
 import { Phone, MessageCircle, ArrowUpRight } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function InquiryBanner() {
     const phone = "919990730939";
@@ -15,12 +16,12 @@ export default function InquiryBanner() {
     )}`;
 
     return (
-        <section className="relative mt-[100px] w-full overflow-hidden bg-black md:mt-20">
+        <section className="relative mt-[105px] w-full overflow-hidden bg-black md:mt-20">
 
             {/* Desktop Banner */}
             <div className="relative hidden w-full md:block">
                 <Image
-                    src="/inquiry-desktop.webp"
+                    src="/inquiry-desktop2.jpg"
                     alt="Vands Engineering Solutions - Airless Painting Machines"
                     width={1900}
                     height={700}
@@ -33,7 +34,7 @@ export default function InquiryBanner() {
             {/* Mobile Banner */}
             <div className="relative w-full md:hidden">
                 <Image
-                    src="/inquiry-mobile.webp"
+                    src="/2.jpg"
                     alt="Vands Engineering Solutions - Painting Machines"
                     width={300}
                     height={500}
@@ -47,7 +48,7 @@ export default function InquiryBanner() {
             <div className="pointer-events-none absolute inset-0 z-10">
 
                 {/* Desktop Button Position */}
-                <div className="absolute left-[5%] top-[67%] hidden md:flex lg:top-[75%]">
+                <div className="absolute left-[5%] top-[67%] hidden md:flex lg:top-[85%]">
 
                     <div className="pointer-events-auto flex items-center gap-3 lg:gap-4">
 
@@ -102,7 +103,7 @@ export default function InquiryBanner() {
                             rel="noopener noreferrer"
                             className="group inline-flex h-11 flex-1 items-center justify-center gap-2 rounded-md border border-white/40 bg-black/80 px-3 text-xs font-bold text-white backdrop-blur-md transition-all active:scale-95"
                         >
-                            <MessageCircle size={17} className="text-[#25D366]" />
+                            <FaWhatsapp size={17} className="text-[#25D366]" />
                             WhatsApp
                         </a>
                     </div>

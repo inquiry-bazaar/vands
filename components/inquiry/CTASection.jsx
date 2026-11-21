@@ -4,6 +4,7 @@
 import React from "react";
 import Image from "next/image";
 import { Phone, MessageCircle, ArrowUpRight } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const phone = "919990730939";
 
@@ -11,7 +12,7 @@ export default function CTASection() {
     return (
         <section
             id="contact-cta"
-            className="relative overflow-hidden bg-[#c8102e] py-10 sm:py-14 lg:py-16"
+            className="relative overflow-hidden bg-[#c8102e] py-5 sm:py-14 lg:py-16"
         >
             {/* Background Decoration */}
             <div className="pointer-events-none absolute -right-32 -top-32 h-[400px] w-[400px] rounded-full border border-white/15" />
@@ -89,7 +90,7 @@ export default function CTASection() {
                                 rel="noopener noreferrer"
                                 className="group inline-flex min-h-[52px] items-center justify-center gap-3 rounded-md border-2 border-white bg-transparent px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-[#c8102e] sm:px-8"
                             >
-                                <MessageCircle size={19} />
+                                <FaWhatsapp size={19} />
                                 WhatsApp
                                 <ArrowUpRight
                                     size={17}

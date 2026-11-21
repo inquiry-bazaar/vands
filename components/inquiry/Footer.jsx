@@ -3,6 +3,7 @@
 
 import React from "react";
 import { MessageCircle, Phone, Send } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const phone = "919990730939";
 
@@ -12,17 +13,17 @@ const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(
 
 const buttons = [
     {
+        name: "WhatsApp",
+        icon: FaWhatsapp,
+        href: whatsappUrl,
+        className: "bg-green-500 hover:bg-[#11632f]",
+        external: true,
+    },
+    {
         name: "Inquiry Now",
         icon: Send,
         href: "#inquiry-form",
         className: "bg-red-500 hover:bg-[#a90d26]",
-    },
-    {
-        name: "WhatsApp",
-        icon: MessageCircle,
-        href: whatsappUrl,
-        className: "bg-green-500 hover:bg-[#11632f]",
-        external: true,
     },
     {
         name: "Call Now",

@@ -13,6 +13,7 @@ import {
     AlertCircle,
     Loader2,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const PHONE = "919990730939";
 const EMAIL = "info@airlesspaintingmachine.com";
@@ -221,7 +222,7 @@ export default function ContactSection() {
                                 rel="noopener noreferrer"
                                 className="sm:mt-10 mt-5 inline-flex items-center gap-3 rounded-lg bg-white px-6 py-3.5 text-sm font-bold text-[#c8102e] transition-all hover:bg-[#111111] hover:text-white"
                             >
-                                <MessageCircle size={19} />
+                                <FaWhatsapp size={19} />
                                 Chat on WhatsApp
                                 <ArrowUpRight size={17} />
                             </a>

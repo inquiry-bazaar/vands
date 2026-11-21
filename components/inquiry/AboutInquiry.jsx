@@ -14,6 +14,12 @@ import {
     CheckCircle2,
     ShieldCheck,
 } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import Image from "next/image";
 
 const stats = [
     {
@@ -31,7 +37,7 @@ const stats = [
     {
         number: 3,
         suffix: "",
-        label: "Core Sectors Served",
+        label: "Core Sectors",
         icon: Building2,
     },
 ];
@@ -56,6 +62,22 @@ export default function AboutInquiry() {
         type: "",
         message: "",
     });
+
+    const whatsappNumber = "919990730939";
+
+    const handleCategoryWhatsApp = (category) => {
+        const message = `Hello Vands Engineering Solutions,
+
+I am interested in ${category.name}.
+
+Please share product details, specifications, and pricing.
+
+Thank you.`;
+
+        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+        window.open(url, "_blank", "noopener,noreferrer");
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -109,6 +131,51 @@ export default function AboutInquiry() {
         }
     };
 
+    const categories = [
+        {
+            id: 1,
+            name: "Eco Pro Plus",
+            products: 30,
+            img: "/cat/airlesspainting.webp",
+            hoverImg: "/cat/6.webp",
+        },
+        {
+            id: 2,
+            name: "Airless Wall Putty Spray Machines",
+            products: 24,
+            img: "/Galaxy1.webp",
+            hoverImg: "/cat/1.webp",
+        },
+        {
+            id: 3,
+            name: "Pneumatic Machines",
+            products: 21,
+            img: "/cat/airlessspray-removebg-preview.webp",
+            hoverImg: "/bg remove.webp",
+        },
+        {
+            id: 4,
+            name: "Kerb Painting Machine",
+            products: 37,
+            img: "/cat/kerb-removebg-preview.webp",
+            hoverImg: "/22.webp",
+        },
+        {
+            id: 5,
+            name: "Polyurethane Machines",
+            products: 26,
+            img: "/cat/airlesspaintspray-removebg-preview.webp",
+            hoverImg: "/11.webp",
+        },
+        {
+            id: 6,
+            name: "Painting Hose Pipe",
+            products: 17,
+            img: "/cat/wallpainting-removebg-preview.webp",
+            hoverImg: "/accesseres/PAINT HOSE.webp",
+        },
+    ];
+
     return (
         <section id="about-inquiry" ref={ref}
             className="relative overflow-hidden bg-[#f8f8f8] py-10 lg:py-15"
@@ -117,7 +184,7 @@ export default function AboutInquiry() {
             <div className="pointer-events-none absolute -left-40 top-20 h-[450px] w-[450px] rounded-full bg-red-500/[0.035] blur-[100px]" />
 
             <div className="relative mx-auto max-w-[1500px] px-3 sm:px-8 lg:px-12">
-                <div className="grid items-start gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-16 xl:gap-20">
+                <div className="grid items-start gap-5 lg:grid-cols-[1fr_0.9fr] lg:gap-16 xl:gap-20">
                     <div className="">
                         {/* Eyebrow */}
                         <div className="mb-2 flex items-center gap-3">
@@ -220,6 +287,105 @@ export default function AboutInquiry() {
                                 Lasting Solutions.
                             </p>
                         </div>
+                    </div>
+
+                    {/* Mobile Category Swiper */}
+                    <div className="min-w-0 w-full overflow-hidden py-2 lg:hidden">
+
+                        {/* Section Heading */}
+                        <div className="mb-2 flex items-center justify-between gap-3">
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <span className="h-[2px] w-6 bg-[#c8102e]" />
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c8102e]">
+                                        Explore Products
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Navigation */}
+                            <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    aria-label="Previous category"
+                                    className="mobile-category-prev flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-lg text-[#111111] transition hover:border-[#c8102e] hover:bg-[#c8102e] hover:text-white"
+                                >
+                                    &#8592;
+                                </button>
+
+                                <button
+                                    type="button"
+                                    aria-label="Next category"
+                                    className="mobile-category-next flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-lg text-[#111111] transition hover:border-[#c8102e] hover:bg-[#c8102e] hover:text-white"
+                                >
+                                    &#8594;
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Swiper */}
+                        <Swiper
+                            modules={[Navigation, Autoplay]}
+                            spaceBetween={10}
+                            slidesPerView={2}
+                            navigation={{
+                                prevEl: ".mobile-category-prev",
+                                nextEl: ".mobile-category-next",
+                            }}
+                            autoplay={{
+                                delay: 3000,
+                                disableOnInteraction: false,
+                                pauseOnMouseEnter: true,
+                            }}
+                            loop={categories.length > 2}
+                            breakpoints={{
+                                640: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 14,
+                                },
+                            }}
+                            className="mobile-category-swiper !pb-2"
+                        >
+                            {categories.map((category) => (
+                                <SwiperSlide
+                                    key={category.id}
+                                    className="!h-auto"
+                                >
+                                    <button
+                                        type="button"
+                                        onClick={() => handleCategoryWhatsApp(category)}
+                                        className="group flex h-full w-full flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white text-left transition-all duration-300 hover:border-[#c8102e]/40 hover:shadow-lg"
+                                    >
+                                        {/* Image */}
+                                        <div className="relative aspect-square w-full overflow-hidden bg-[#f8f8f8]">
+                                            <Image
+                                                src={category.hoverImg}
+                                                alt={category.name}
+                                                fill
+                                                sizes="(max-width: 639px) 50vw, 33vw"
+                                                className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                                            />
+
+                                            {/* WhatsApp Indicator */}
+                                            <span className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#c8102e] shadow-sm transition-colors group-hover:bg-[#c8102e] group-hover:text-white">
+                                                <ArrowUpRight size={15} />
+                                            </span>
+                                        </div>
+
+                                        {/* Category Details */}
+                                        <div className="flex w-full flex-1 flex-col items-center justify-center gap-2 border-t border-neutral-100 px-2 py-2 text-center">
+                                            <h3 className="line-clamp-2 text-xs font-bold leading-[18px] text-[#111111] transition-colors group-hover:text-[#c8102e]">
+                                                {category.name}
+                                            </h3>
+
+                                            <span className="text-[10px] animate-pulse font-semibold text-[#c8102e]">
+                                                Enquire on WhatsApp
+                                            </span>
+                                        </div>
+                                    </button>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
 
                     <div
