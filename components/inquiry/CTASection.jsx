@@ -5,7 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { Phone, MessageCircle, ArrowUpRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { handleCallClick } from "@/lib/track";
+import { handleCallClick, handleWhatsappClick } from "@/lib/track";
 
 const phone = "919990730939";
 
@@ -83,7 +83,7 @@ export default function CTASection() {
                             </a>
 
                             {/* WhatsApp Button */}
-                            <a
+                            <a onClick={() => handleWhatsappClick({ source: "Website about page", obj: "N/A" })}
                                 href={`https://wa.me/${phone}?text=${encodeURIComponent(
                                     "Hello, I am interested in your Airless Painting Machines. Please share product details and pricing."
                                 )}`}

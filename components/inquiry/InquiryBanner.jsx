@@ -4,7 +4,7 @@
 import Image from "next/image";
 import { Phone, MessageCircle, ArrowUpRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { handleCallClick } from "@/lib/track";
+import { handleCallClick, handleWhatsappClick } from "@/lib/track";
 
 export default function InquiryBanner() {
     const phone = "919990730939";
@@ -67,7 +67,7 @@ export default function InquiryBanner() {
                         </a>
 
                         {/* WhatsApp */}
-                        <a
+                        <a onClick={() => handleWhatsappClick({ source: "Website about page", obj: "N/A" })}
                             href={whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"

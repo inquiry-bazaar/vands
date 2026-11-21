@@ -223,7 +223,7 @@ export default function Location() {
                 {item.name}
               </h3>
 
-                  <a
+                  <a 
               href={`https://wa.me/+919990730939?text=Hi, I'm interested in ${item.name}`}
               target="_blank"
               onClick={(e) => e.stopPropagation()} className="bg-green-500 px-3 py-2 mt-3 capitalize rounded-sm text-white text-md md:text-lg flex items-center justify-center gap-2"><FaWhatsapp size={25}/> whatsapp now</a>

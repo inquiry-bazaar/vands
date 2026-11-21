@@ -11,7 +11,7 @@ import {
     ArrowUpRight,
     MessageCircle,
 } from "lucide-react";
-import { handleCallClick } from "@/lib/track";
+import { handleCallClick, handleWhatsappClick } from "@/lib/track";
 
 const navLinks = [
     { name: "Home", href: "#home" },
@@ -188,7 +188,7 @@ export default function Navbar() {
 
                     {/* Contact Buttons */}
                     <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-                        <a
+                        <a onClick={() => handleCallClick({ source: "Website about page", obj: "N/A" })}
                             href={`tel:+${phone}`}
                             aria-label="Call Now"
                             className="inline-flex h-9 items-center justify-center gap-2 rounded-md bg-[#DC2626] px-3 text-white transition-colors hover:bg-[#b91c1c] sm:px-4 md:h-10"
@@ -203,7 +203,7 @@ export default function Navbar() {
                             />
                         </a>
 
-                        <a
+                        <a onClick={() => handleWhatsappClick({ source: "Website about page", obj: "N/A" })}
                             href={whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"
