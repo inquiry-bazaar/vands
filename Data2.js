@@ -452,6 +452,8 @@ export const categories = [
             metaDescription:
               "Looking for a durable paint sprayer? Get high-efficiency wall putty spray machine designed for smooth finish, precision, and cost-effective performance.",
 
+               price: "65,000",
+            oldPrice: "77,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -527,6 +529,8 @@ export const categories = [
             metaDescription:
               "Vands Engineering Solutions offers Galaxy wall putty spray machine designed for precision coating, durability, and consistent industrial performance.",
 
+                 price: "1,20,000",
+            oldPrice: "1,35,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -616,6 +620,8 @@ export const categories = [
             metaDescription:
               "Buy V9 Mortar Spray Machine from Vands Engineering Solution. Features a 1000W motor, 1380W air compressor, 20L hopper, and 15m hose for efficient plastering and mortar spraying.",
 
+               price: "65,000",
+            oldPrice: "77,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -705,6 +711,8 @@ export const categories = [
             metaDescription:
               "Vands Engineering Solutions offers Galaxy-Plus electric airless spray-painting machines designed for precision coating, durability, and consistent performance.",
 
+               price: "1,65,000",
+            oldPrice: "1,95,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -784,6 +792,8 @@ export const categories = [
             metaDescription:
               "Professional electric airless paint sprayer ideal for wall paints. Ensures uniform coating, reduced wastage, and high-efficiency painting performance.",
 
+               price: "1,80,000",
+            oldPrice: "2,10,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -855,7 +865,8 @@ export const categories = [
               "Heavy Duty Airless Paint Pump Maxcoat | Vands Engineering",
             metaDescription:
               "Buy Heavy Duty Airless Paint Pump (Maxcoat) for high-performance industrial coating. Ensures smooth finish, durability, and efficient paint delivery.",
-
+               price: "1,05,000",
+            oldPrice: "1,25,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -941,7 +952,8 @@ export const categories = [
 
             metaDescription:
               "Explore the Vands 915 Rugged Series Airless Paint Machine—built for powerful, smooth, and efficient painting across industrial and commercial projects",
-
+               price: "43,000",
+            oldPrice: "53,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -1019,7 +1031,8 @@ export const categories = [
 
             metaDescription:
               "Buy the Vands 930 Rugged Series Airless Paint Machine from Vands Engineering. Delivers fast, uniform coverage with superior durability and professional-grade results",
-
+             price: "1,30,000",
+            oldPrice: "1,50,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -1097,7 +1110,8 @@ export const categories = [
 
             metaDescription:
               "Discover the Vands 950 Rugged Series Airless Paint Machine by Vands Engineering. Built for high performance, durability, and efficient painting for commercial and industrial use.",
-
+                  price: "1,40,000",
+            oldPrice: "1,60,000",
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -1175,7 +1189,8 @@ export const categories = [
 
             metaDescription:
               "Explore the Vands 980 Rugged Series Airless Paint Machine by Vands Engineering. Designed for powerful performance, smooth finishes, and efficient painting in demanding applications.",
-
+                price: "1,50,000",
+            oldPrice: "1,70,000",
             description: [
               { type: "h2", text: "Overview" },
               {
