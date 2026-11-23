@@ -1,15 +1,27 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { categories } from "@/Data";
 
-export default function Enquiry({ isOpen, onClose }) {
+export default function Enquiry({ isOpen, onClose, selectedProduct = "" }) {
   const products = categories.flatMap((c) => c.products || []);
+  const productNames = products.map((product) => product.name);
+  const productOptions =
+    selectedProduct && !productNames.includes(selectedProduct)
+      ? [...products, { id: "selected-product", name: selectedProduct }]
+      : products;
 
   const [submitted, setSubmitted] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [requirement, setRequirement] = useState(selectedProduct);
+
+  useEffect(() => {
+    if (isOpen) {
+      setRequirement(selectedProduct);
+    }
+  }, [isOpen, selectedProduct]);
 
   if (!isOpen) return null;
 
@@ -26,7 +38,7 @@ export default function Enquiry({ isOpen, onClose }) {
       phone: formElement.phone.value.trim(),
       email: formElement.email.value.trim(),
       place: "N/A",
-      product: formElement.products.value,
+      product: requirement,
       message: formElement.message.value.trim(),
     };
 
@@ -98,10 +110,12 @@ export default function Enquiry({ isOpen, onClose }) {
               <select
                 name="products"
                 required
+                value={requirement}
+                onChange={(event) => setRequirement(event.target.value)}
                 className="w-1/2 p-3 border-2 border-black rounded-md text-sm"
               >
                 <option value="">Select Product</option>
-                {products.map((p) => (
+                {productOptions.map((p) => (
                   <option key={p.id} value={p.name}>
                     {p.name}
                   </option>

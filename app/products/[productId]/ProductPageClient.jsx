@@ -349,7 +349,11 @@ const ProductPageClient = ({ productId }) => {
 
         {/* ENQUIRY MODAL */}
         {isFormOpen && (
-          <Enquiry isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+          <Enquiry
+            isOpen={isFormOpen}
+            onClose={() => setIsFormOpen(false)}
+            selectedProduct={product?.name || ""}
+          />
         )}
 
       </div>
