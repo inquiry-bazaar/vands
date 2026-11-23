@@ -10,8 +10,10 @@ export default function page() {
         { name: "About Us", link: "/about" },
         { name: "Blogs", link: "/blogs" },
         { name: "Contact", link: "/contact" },
-        { name: "Terms and Conditions", link: "/termsandcondition" },
+        { name: "Terms and Conditions", link: "/terms-conditions" },
         { name: "Privacy Policy", link: "/privacy-policy" },
+        { name: "Shipping Policy", link: "/shipping-policy" },
+        { name: "Return & Refund Policy", link: "/return-refund" },
     ]
 
     const allProducts = categories.flatMap((c) => c.products);

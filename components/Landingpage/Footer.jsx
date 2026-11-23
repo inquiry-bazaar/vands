@@ -157,6 +157,38 @@ const Footer = () => {
             </li>
             <li>
               <Link
+                href="/terms-conditions"
+                className="hover:text-red-400 transition flex items-center gap-2"
+              >
+                Terms &amp; Conditions
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/privacy-policy"
+                className="hover:text-red-400 transition flex items-center gap-2"
+              >
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/shipping-policy"
+                className="hover:text-red-400 transition flex items-center gap-2"
+              >
+                Shipping Policy
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/return-refund"
+                className="hover:text-red-400 transition flex items-center gap-2"
+              >
+                Return &amp; Refund Policy
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/sitemap"
                 className="hover:text-red-400 transition flex items-center gap-2"
               >

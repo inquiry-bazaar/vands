@@ -27,6 +27,10 @@ export async function GET() {
     { loc: `${baseUrl}/contact`, priority: 0.8, changefreq: "yearly" },
     { loc: `${baseUrl}/products`, priority: 0.8, changefreq: "yearly" },
     { loc: `${baseUrl}/our-blogs`, priority: 0.9, changefreq: "weekly" },
+    { loc: `${baseUrl}/return-refund`, priority: 0.9, changefreq: "weekly" },
+    { loc: `${baseUrl}/shipping-policy`, priority: 0.9, changefreq: "weekly" },
+    { loc: `${baseUrl}/terms-conditions`, priority: 0.9, changefreq: "weekly" },
+    { loc: `${baseUrl}/privacy-policy`, priority: 0.9, changefreq: "weekly" },
   ]
     .map(
       (page) => `
