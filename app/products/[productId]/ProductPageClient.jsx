@@ -176,6 +176,48 @@ const ProductPageClient = ({ productId }) => {
               them ideal for heavy-duty operations.
             </p>
 
+            {/* PRICE + BUY NOW */}
+            {product?.price && (
+              <div className="mt-6 flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 p-4">
+
+                {/* Price */}
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-2xl md:text-3xl font-bold text-[#c8102e]">
+                      ₹{product.price}
+                    </span>
+
+                    {product.oldPrice && (
+                      <span className="text-sm md:text-lg text-gray-400 line-through">
+                        ₹{product.oldPrice}
+                      </span>
+                    )}
+                  </div>
+
+                  {product.oldPrice &&
+                    Number(product.oldPrice.replace(/,/g, "")) >
+                    Number(product.price.replace(/,/g, "")) && (
+                      <span className="text-xs font-semibold text-green-600">
+                        {Math.round(
+                          ((Number(product.oldPrice.replace(/,/g, "")) -
+                            Number(product.price.replace(/,/g, ""))) /
+                            Number(product.oldPrice.replace(/,/g, ""))) *
+                          100
+                        )}% OFF
+                      </span>
+                    )}
+                </div>
+
+                {/* Buy Now */}
+                <button onClick={() => setIsFormOpen(true)}
+                  className="shrink-0 rounded-lg bg-[#c8102e] px-5 py-3 text-sm md:text-base font-semibold text-white transition-all duration-300 hover:bg-[#b40920] hover:shadow-lg"
+                >
+                  Buy Now
+                </button>
+
+              </div>
+            )}
+
             {/* SPECIFICATIONS */}
             <div className="mt-8">
               <h2 className="text-2xl lg:text-3xl font-bold uppercase mb-4">

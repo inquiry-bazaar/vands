@@ -19,8 +19,10 @@ export const categories = [
             id: "maruti-450",
             name: "Maruti 450",
             metaTitle: "Buy Electric Paint Machine Maruti | Vands Engineering",
-            metaDescription:
-              "Looking for a reliable electric paint machine? Maruti Electric Paint Machine delivers smooth finish, high efficiency, and cost-effective painting performance.",
+            metaDescription: "Looking for a reliable electric paint machine? Maruti Electric Paint Machine delivers smooth finish, high efficiency, and cost-effective painting performance.",
+
+            price: "16,000",
+            oldPrice: "17,000",
 
             description: [
               { type: "h2", text: "Overview" },
@@ -106,6 +108,9 @@ export const categories = [
             metaDescription:
               "Buy Electric Paint Machine (E-Junior) for smooth, efficient painting performance. Ideal for industrial and commercial coating applications.",
 
+            price: "22,500",
+            oldPrice: "24,000",
+
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -187,6 +192,9 @@ export const categories = [
             metaDescription:
               "Buy Electric Paint Equipment (Digicoat) for high-efficiency coating applications. Ensures smooth finish, durability, and industrial-grade performance.",
 
+            price: "35,000",
+            oldPrice: "37,000",
+
             description: [
               { type: "h2", text: "Overview" },
               {
@@ -263,6 +271,9 @@ export const categories = [
             metaTitle: "Buy Electric Paint Machine Eco-Pro | Vands Engineering",
             metaDescription:
               "Looking for a reliable electric paint machine? Eco-Pro delivers smooth finish, high efficiency, and cost-effective professional painting solutions.",
+
+            price: "65,000",
+            oldPrice: "67,000",
 
             description: [
               { type: "h2", text: "Overview" },
@@ -349,7 +360,8 @@ export const categories = [
               "Electric Paint Machine Eco Pro Plus | Vands Engineering",
             metaDescription:
               "Buy Electric Paint Machine (Eco Pro Plus) for efficient, smooth, and high-quality coating. Ideal for industrial and commercial painting applications.",
-
+            price: "65,000",
+            oldPrice: "67,000",
             description: [
               { type: "h2", text: "Overview" },
               {
